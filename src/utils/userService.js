@@ -42,9 +42,21 @@ function login(creds) {
   .then(({token}) => tokenService.setToken(token));
 }
 
+function getProfile(username){
+  return fetch(BASE_URL + username, {
+    headers: {
+      Authorization: "Bearer " + tokenService.getToken(),
+    }
+  }).then((res) => {
+    if (res.ok) return res.join();
+    throw new Error("Error from getProfile function in userService, check terminal")
+  });
+}
+
 export default {
   signup, 
   getUser,
   logout,
-  login
+  login,
+  getProfile,
 };
