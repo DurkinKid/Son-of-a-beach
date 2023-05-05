@@ -11,5 +11,3 @@ db.on("connected", function () {
   console.log(`Connected to MongoDB at ${db.host}:${db.port}`);
 });
 
-
-
