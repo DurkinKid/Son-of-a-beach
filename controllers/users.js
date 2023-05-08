@@ -19,9 +19,9 @@ const BUCKET_NAME = process.env.BUCKET;
 
 async function signup(req, res) {
   console.log(req.body, ' < req.body', req.file, " < req.filed")
-  if (req.file) return res.status(400).json({error: "Please Submit a Photo"})
+  if (!req.file) return res.status(400).json({error: "Please Submit a Photo"})
 
-  const filePath = `sonofabeach/${uuid()}-${req.file.originalname}`;
+  const filePath = `son-of-a-beach/${uuidv4()}-${req.file.originalname}`;
   const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer};
 
   s3.upload(params, async function(err, data){

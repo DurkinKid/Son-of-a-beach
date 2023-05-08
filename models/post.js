@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema({
     favorites: [favoritesSchema],
     comments: [commentsSchema],
     location: String,
-    postDate: Date,
+    postDate: {type: Date, default: Date.now}
 })
 
 module.exports = mongoose.model('Post', postSchema);
