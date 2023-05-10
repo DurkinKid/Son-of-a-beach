@@ -5,6 +5,7 @@ import { useState } from "react";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import userService from "./utils/userService";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <>
     <HeaderPage /><hr/>
     <Routes>
+      <Route path="/:username" element={<ProfilePage loggedUser={user} />} />
       <Route path="/" element={<FeedPage loggedUser={user} />} />
       <Route path="/login" element={<LoginPage handleAuth={handleAuth} />} />
       <Route path="/signup" element={<SignUpPage handleAuth={handleAuth} />} />
@@ -37,6 +39,7 @@ function App() {
     <>
     <HeaderPage /><hr/>
     <Routes>
+      <Route path="/:username" element={<ProfilePage loggedUser={user} />} />
       <Route path="/login" element={<LoginPage handleAuth={handleAuth} />} />
       <Route path="/signup" element={<SignUpPage handleAuth={handleAuth} />} />
       <Route path="/*" element={<Navigate to="/login" />} />    

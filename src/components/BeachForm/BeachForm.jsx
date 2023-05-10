@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Form, Segment } from 'semantic-ui-react'
+import  GooglePlacesAutocomplete  from "react-google-places-autocomplete";
+import { geocodeByPlaceId, getLatLng } from 'react-google-places-autocomplete';
+
+
+
+
+
+
+
+
 
 export default function BeachForm({handlePost}){
     const [state, setState] = useState({
         description:"",
         location: "",
-        postdate: ""
+        latitude: 0,
+        longitude: 0,
+        postDate: ""
     })
     const [image, setImage] = useState('')
+    const [value, setValue] = useState(null)
+
+
    
 
     function handleChange(e){
@@ -27,11 +42,26 @@ export default function BeachForm({handlePost}){
 
         const formData = new FormData();
         formData.append('photo', image)
-        for (let key in state){
-            formData.append(key, state[key])
+        for (let fieldname in state){
+            formData.append(fieldname, state[fieldname])
         }
         handlePost(formData);
     }
+
+    useEffect(() => {
+        if(value){
+            geocodeByPlaceId(value.value.place_id)
+            .then(results => getLatLng(results[0]))
+            .then(({ lat, lng }) => {
+      
+            setState({
+                ...state,
+                location: value.value.description,
+                latitude: lat, 
+                longitude: lng
+            })
+        })}
+    },[value])
 
     return (
         <Segment>
@@ -48,15 +78,20 @@ export default function BeachForm({handlePost}){
             name="description"
             onChange={handleChange}
             />
+            <label>Location</label>
+            <GooglePlacesAutocomplete
+            type="text"
+            label='Location'
+            name="location" 
+            apiKey="AIzaSyAPBJe1eXaGgb6NM3k_qUf85p7zmkZl7uI"
+            selectProps={{value, onChange: setValue}}
+            apiOptions={{langauge: 'en'}} 
+            /><br/>
+            
              <Form.Input 
-            placeholder="Coordinates"
-            required
-            name="location"
-            onChange={handleChange}
-            />
-             <Form.Input 
-            name="postdate"
+            name="postDate"
             type="date"
+            onChange={handleChange}
             />
             <Button type="submit" color="orange">Post</Button>
             </Form>

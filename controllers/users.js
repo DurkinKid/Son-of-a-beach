@@ -31,9 +31,9 @@ async function signup(req, res) {
       console.log('===============')
       res.status(400).json({error: "Error from aws, check terminal"})
     }
-  })
+  
 
-  const user = new User(req.body);
+  const user = new User({...req.body, photoUrl: data.Location});
   try {
     await user.save();
     const token = createJWT(user);
@@ -42,6 +42,7 @@ async function signup(req, res) {
     // Probably a duplicate email
     res.status(400).json(err);
   }
+})
 }
 
 

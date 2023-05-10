@@ -18,8 +18,33 @@ const postSchema = new mongoose.Schema({
     favorites: [favoritesSchema],
     comments: [commentsSchema],
     location: String,
-    postDate: {type: Date, default: Date.now}
+    latitude: Number,
+    longitude: Number,
+    postDate: {type: Date, default: Date.toLocaleString}
 })
+
+
+// postSchema.pre('save', async function (next) {
+//   if (this.isModified('location') || this.isNew) {
+//     try {
+//       const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(this.location)}&key=${process.env.GOOGLE_MAPS_API_KEY}`);
+//       const { results } = res.data;
+
+//       if (results.length) {
+//         const { lat, lng } = results[0].geometry.location;
+//         this.latitude = lat;
+//         this.longitude = lng;
+//       } else {
+//         throw new Error('No results found');
+//       }
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }
+
+//   next();
+// });
+
 
 module.exports = mongoose.model('Post', postSchema);
 

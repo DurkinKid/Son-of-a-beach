@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Navigate, Link, useParams} from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import * as postsApi from '../../utils/postsApi'
+import * as favoritesApi from '../../utils/favoritesApi'
 import { Grid } from 'semantic-ui-react';
 
 import tokenService from '../../utils/tokenService';
@@ -50,6 +51,27 @@ export default function FeedPage({loggedUser}){
         }
     }
 
+
+    async function addFavorite(postId){
+        try {
+            const data = await favoritesApi.create(postId);
+            getPost()
+        }catch(err){
+            console.log(err, "error in add Favorite")
+        }
+    }
+
+    async function removeFavorite(favoriteId){
+        try {
+            const data = await favoritesApi.removeFavorite(favoriteId);
+            getPost()
+        }catch(err){
+            console.log(err, "error in remove favorite")
+        }
+    }
+
+
+
     useEffect(() => {
         getPost();
       }, []);
@@ -59,7 +81,7 @@ export default function FeedPage({loggedUser}){
 if (error) {
     return (
         <>
-        <HeaderPage loggedUser={loggedUser} />
+        <Loading />
         </>
     );
 }
@@ -77,7 +99,7 @@ if (error) {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
-                    <PostDisplay posts={posts} isProfile={false} loggedUser={loggedUser} loading={loading} />
+                    <PostDisplay posts={posts} isProfile={false} loggedUser={loggedUser} loading={loading} addFavorite={addFavorite} removeFavorite={removeFavorite} />
                 </Grid.Column>
             </Grid.Row>
         </Grid>

@@ -36,7 +36,9 @@ function create(req, res){
                 description: req.body.description,
                 location: req.body.location,
                 postDate: req.body.postDate,
-                photoUrl: data.Location
+                photoUrl: data.Location,
+                latitude: req.body.latitude,
+                longitude: req.body.longitude
             })
             await post.populate('user');
             res.status(201).json({data: post})

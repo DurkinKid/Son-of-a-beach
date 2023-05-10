@@ -25,6 +25,7 @@ export default function SignUpPage({handleAuth}){
         email: "",
         password: "",
         passwordConf: "",
+        description: "",
         })
 
     const [image, setImage] = useState("")
@@ -48,8 +49,8 @@ export default function SignUpPage({handleAuth}){
 
         const formData = new FormData();
         formData.append('photo', image)
-        for (let key in state){
-            formData.append(key, state[key])
+        for (let fieldname in state){
+            formData.append(fieldname, state[fieldname])
         }
         console.log(formData.forEach((item) => console.log(item)));
 
@@ -103,6 +104,13 @@ export default function SignUpPage({handleAuth}){
                         onChange={handleChange}
                         required
                         />
+                        <Form.TextArea
+                        label="Tell us about yourself"
+                        name="description"
+                        value={state.description}
+                        placeholder="Best Beach Phrase"
+                        onChange={handleChange}
+            />
                         <Form.Field>
                         <Form.Input
                         type="file"
