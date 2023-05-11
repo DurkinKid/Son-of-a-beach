@@ -11,6 +11,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 
 
 export default function PostCard({post, loggedUser, isProfile, addFavorite, removeFavorite}){
+  console.log(post.postDate)
   
 
   const [showMap, setShowMap] = useState(false)
@@ -56,6 +57,9 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
       ? () => removeFavorite(post.favorites[faveIndex]._id)
       : () => addFavorite(post._id);
       
+  const postDate = new Date(post.postDate);
+  const formattedDate = `${postDate.toLocaleString('default', { month: 'long' })} ${postDate.getDate()}, ${postDate.getFullYear()}`;
+    
 
     return (
       
@@ -108,7 +112,7 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
       )}
 
       <Card.Content textAlign="center">
-        <Card.Description>{post.postDate}</Card.Description>
+        <Card.Description>{formattedDate}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Icon

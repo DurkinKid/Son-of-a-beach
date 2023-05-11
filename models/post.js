@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema({
     location: String,
     latitude: Number,
     longitude: Number,
-    postDate: {type: Date, default: Date.toLocaleString}
+    postDate: {type: Date, default: Date.now}
 })
 
 

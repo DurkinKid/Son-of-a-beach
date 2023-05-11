@@ -7,6 +7,8 @@ import SignUpPage from "./pages/SignupPage/SignupPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import userService from "./utils/userService";
+import AnimatedBackground from "./components/AnimatedBackground/AnimatedBackground";
+
 
 function App() {
 
@@ -25,6 +27,7 @@ function App() {
 
   return (
     <>
+    <AnimatedBackground />
     <HeaderPage /><hr/>
     <Routes>
       <Route path="/:username" element={<ProfilePage loggedUser={user} />} />
@@ -37,6 +40,7 @@ function App() {
 }
   return (
     <>
+    <AnimatedBackground />
     <HeaderPage /><hr/>
     <Routes>
       <Route path="/:username" element={<ProfilePage loggedUser={user} />} />

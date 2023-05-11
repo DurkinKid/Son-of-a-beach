@@ -28,9 +28,13 @@ import React from 'react';
 import { Header, Image, Icon, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+
 export default function HeaderPage({ loggedUser }) {
   return (
+  <>
+    
     <Header as="h2">
+
       <Segment>
         <Link to="/">
           <Icon name="home" />
@@ -57,5 +61,7 @@ export default function HeaderPage({ loggedUser }) {
       )}
       </Segment>
     </Header>
+    
+    </>
   );
 }
