@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://127.0.0.1:27017/son-of-a-beach', {
+mongoose.connect('mongodb+srv://Charley:Charlesthegr8@cluster0.e4vye6e.mongodb.net/son-of-a-beach?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

@@ -28,10 +28,10 @@ function App() {
   return (
     <>
     <AnimatedBackground />
-    <HeaderPage /><hr/>
+    <HeaderPage handleLogout={handlelogout} /><hr/>
     <Routes>
-      <Route path="/:username" element={<ProfilePage loggedUser={user} />} />
-      <Route path="/" element={<FeedPage loggedUser={user} />} />
+      <Route path="/:username" element={<ProfilePage handlelogout={handlelogout} loggedUser={user} />} />
+      <Route path="/" element={<FeedPage handlelogout={handlelogout} loggedUser={user} />} />
       <Route path="/login" element={<LoginPage handleAuth={handleAuth} />} />
       <Route path="/signup" element={<SignUpPage handleAuth={handleAuth} />} />
     </Routes>
@@ -43,7 +43,7 @@ function App() {
     <AnimatedBackground />
     <HeaderPage /><hr/>
     <Routes>
-      <Route path="/:username" element={<ProfilePage loggedUser={user} />} />
+      <Route path="/:username" element={<ProfilePage handlelogout={handlelogout} loggedUser={user} />} />
       <Route path="/login" element={<LoginPage handleAuth={handleAuth} />} />
       <Route path="/signup" element={<SignUpPage handleAuth={handleAuth} />} />
       <Route path="/*" element={<Navigate to="/login" />} />    

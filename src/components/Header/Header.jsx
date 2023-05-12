@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export default function HeaderPage({ loggedUser }) {
+export default function HeaderPage({ loggedUser, handleLogout }) {
   return (
   <>
     
@@ -19,10 +19,12 @@ export default function HeaderPage({ loggedUser }) {
           <>
             <Link to="/signup">Sign-Up</Link>
             <Link to="/login">Login</Link>
+            <Link to="/login" onClick={handleLogout}>Logout</Link>
           </>
         )}
       
       {loggedUser && (
+        <>
         <Link to={`/${loggedUser.username}`}>
           <Image
             src={
@@ -33,7 +35,9 @@ export default function HeaderPage({ loggedUser }) {
             avatar
           />
         </Link>
+        </>
       )}
+      
       </Segment>
     </Header>
     
