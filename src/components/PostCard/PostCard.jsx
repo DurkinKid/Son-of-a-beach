@@ -1,16 +1,18 @@
 import { Card, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
-import { geocodeByPlaceId, getLatLng } from 'react-google-places-autocomplete';
+
 import { useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
+import CommentsPage from "../CommentsPage/CommentsPage";
+import LoginPage from "../../pages/LoginPage/LoginPage";
 
 
 
 
 
 
-export default function PostCard({post, loggedUser, isProfile, addFavorite, removeFavorite}){
+export default function PostCard({post, loggedUser, isProfile, addFavorite, removeFavorite, addComment, removeComment}){
   console.log(post.postDate)
   
 
@@ -19,27 +21,13 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
   const handleLocationClick = async () => {
     // const results = await geocodeByPlaceId(post.place_id);
     // const { lat, lng } = await getLatLng(results[0]); // results is an array, so use results[0]
-    setShowMap(true);
+    setShowMap(!showMap);
   };
 
   const defaultProps = {center: {
     lat: post.latitude,
     lng: post.longitude
-  },zoom:8}
-
-  // const loader = new Loader({
-  //   apiKey: "AIzaSyAPBJe1eXaGgb6NM3k_qUf85p7zmkZl7uI",
-  //   version: "weekly"
-  // });
-  
-  // loader.load().then(async () => {
-  //   const { Map } = await google.maps.importLibrary("maps");
-  
-  //   map = new Map(document.getElementById("map"), {
-  //     center: { lat: -34.397, lng: 150.644 },
-  //     zoom: 8,
-  //   });
-  // });
+  }, zoom:8}
    
   
 
@@ -59,11 +47,12 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
       
   const postDate = new Date(post.postDate);
   const formattedDate = `${postDate.toLocaleString('default', { month: 'long' })} ${postDate.getDate()}, ${postDate.getFullYear()}`;
-    
+
+  
 
     return (
       
-      <Card raised>
+      <Card centered raised>
       {isProfile ? (
         ""
       ) : (
@@ -74,8 +63,8 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
                 size="large"
                 avatar
                 src={
-                  post.photoUrl
-                    ? post.photoUrl
+                  loggedUser.photoUrl
+                    ? loggedUser.photoUrl
                     : "https://react.semantic-ui.com/images/wireframe/square-image.png"
                 }
               />
@@ -114,15 +103,29 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
       <Card.Content textAlign="center">
         <Card.Description>{formattedDate}</Card.Description>
       </Card.Content>
-      <Card.Content extra>
-        <Icon
+      <Card.Content textAlign="center" extra>
+        <Icon 
           name={"heart"}
           size="large"
           color={faveColor}
           onClick={clickHandler}
         />
-        {post.favorites.length} Favorites
+        {post.favorites.length}
+        <Icon
+        name="comment"
+        size="large"
+        color="blue"
+        onClick={() => {
+          let commentEl = document.getElementById(`p${post._id}`)
+          if(commentEl.style.display === "none"){
+            commentEl.style.display = "block"
+          }else if (commentEl.style.display === "block"){
+            commentEl.style.display = "none"
+          }
+        }}
+        />{post.comments.length}
       </Card.Content>
+      <CommentsPage post={post} addComment={addComment} removeComment={removeComment} loggedUser={loggedUser} />
     </Card>
     );
 }

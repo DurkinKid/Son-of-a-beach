@@ -3,6 +3,7 @@ import { Navigate, Link, useParams} from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import * as postsApi from '../../utils/postsApi'
 import * as favoritesApi from '../../utils/favoritesApi'
+import * as commentsApi from '../../utils/commentsApi';
 import { Grid } from 'semantic-ui-react';
 
 import tokenService from '../../utils/tokenService';
@@ -70,6 +71,25 @@ export default function FeedPage({loggedUser}){
         }
     }
 
+    async function addComment(postId, body){
+        try {
+            console.log(body, "body")
+            const data = await commentsApi.create(postId, body)
+            getPost()
+        }catch(err){
+            console.log(err, "error in add Favorite")
+        }
+    }
+
+    async function removeComment(commentId){
+        try {
+            const data = await commentsApi.removeComment(commentId);
+            getPost()
+        }catch(err){
+            console.log(err, "error in remove favorite")
+        }
+    }
+
 
 
     useEffect(() => {
@@ -99,7 +119,7 @@ if (error) {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
-                    <PostDisplay posts={posts} isProfile={false} loggedUser={loggedUser} loading={loading} addFavorite={addFavorite} removeFavorite={removeFavorite} />
+                    <PostDisplay posts={posts} isProfile={false} loggedUser={loggedUser} loading={loading} addFavorite={addFavorite} removeFavorite={removeFavorite} addComment={addComment} removeComment={removeComment} postPerCol={1}  />
                 </Grid.Column>
             </Grid.Row>
         </Grid>

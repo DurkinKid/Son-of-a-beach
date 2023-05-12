@@ -14,6 +14,9 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 import { useNavigate } from "react-router-dom";
 
 
+
+
+
 export default function SignUpPage({handleAuth}){
 
     const logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTNzwtfuRzoCdEhFwp11Fgl3pydR3fH1ryVU3owkHnLg&usqp=CAU&ec=48665699";

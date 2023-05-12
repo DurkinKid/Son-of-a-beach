@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import userService from "../../utils/userService";
 import * as favoritesApi from '../../utils/favoritesApi';
+import * as commentsApi from '../../utils/commentsApi';
 import Loading from "../../components/Loader/Loader";
 import PostDisplay from "../../components/PostDisplay/PostDisplay";
 import ProfileBio from "../../components/ProfileBio/ProfileBio";
@@ -48,7 +49,25 @@ export default function ProfilePage({loggedUser}){
             const data = await favoritesApi.removeFavorite(favoriteId)
             getProfile()
         }catch(err){
-            console.log(err, "error in remove like function in profile bio component")
+            console.log(err, "error in remove favorite function in profile bio component")
+        }
+      }
+
+      async function addComment(postId, body){
+        try {
+            const data = await commentsApi.create(postId, body);
+            getPost()
+        }catch(err){
+            console.log(err, "error in add Favorite")
+        }
+    }
+
+      async function removeComment(commentId){
+        try {
+            const data = await commentsApi.removeComment(commentId)
+            getProfile()
+        }catch(err){
+            console.log(err, "error in remove comment function in profile bio component")
         }
       }
 
@@ -79,7 +98,7 @@ export default function ProfilePage({loggedUser}){
             </Grid.Row>
             <Grid.Row centered>
             <Grid.Column>
-                <PostDisplay addFavorite={addFavorite} removeFavorite={removeFavorite} loggedUser={loggedUser} isProfile={true} posts={posts} />
+                <PostDisplay addFavorite={addFavorite} removeFavorite={removeFavorite} loggedUser={loggedUser} isProfile={true} posts={posts} addComment={addComment} removeComment={removeComment} postPerCol={4} />
             </Grid.Column>
             </Grid.Row>
         </Grid>

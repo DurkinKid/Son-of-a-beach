@@ -81,8 +81,7 @@ export default function BeachForm({handlePost}){
             <label>Location</label>
             <GooglePlacesAutocomplete
             type="text"
-            label='Location'
-            name="location" 
+            label='Location'         
             apiKey="AIzaSyAPBJe1eXaGgb6NM3k_qUf85p7zmkZl7uI"
             selectProps={{value, onChange: setValue}}
             apiOptions={{langauge: 'en'}} 

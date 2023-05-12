@@ -6,9 +6,10 @@ const favoritesSchema = mongoose.Schema({
   })
 
 const commentsSchema = mongoose.Schema({
+    photoUrl: String,
     username: String,
     userId: { type: mongoose.Schema.Types.ObjectId },
-    content: String,
+    comment: String
   })
 
 const postSchema = new mongoose.Schema({

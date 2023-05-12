@@ -7,9 +7,10 @@ module.exports = {
 
 async function create(req, res){
     try {
-        const post = await Post.findById(req.paramas.id);
-        post.comments.push({username: req.user.username, userId: req.user._id, content: req.user.content})
+        const post = await Post.findById(req.params.id);
+        post.comments.push({photoUrl: req.body.data.photoUrl, username: req.user.username, userId: req.user._id, comment: req.body.data.comment})
         await post.save()
+        console.log(req.body, "comment")
         res.status(201).json({data: "Added Comment"})
 
     }catch(err){
@@ -21,7 +22,7 @@ async function create(req, res){
 async function deleteComment(req, res){
     try {
         const post = await Post.findOne({'comments._id': req.params.id, 'comments.username': req.user.username});
-        post.comments.remove(req.parmas.id)
+        post.comments.remove(req.params.id)
         await post.save()
         res.json({data: 'comment removed'})
     }catch(err){
