@@ -20,7 +20,7 @@ function create(req, res){
     console.log(req.body, req.file, req.user)
 
     const filePath = `son-of-a-beach/posts/${uuidv4()}-${req.file.originalname}`;
-    const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer}; // Body is the Image
+    const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer};
 
     s3.upload(params, async function(err, data){
         if(err){

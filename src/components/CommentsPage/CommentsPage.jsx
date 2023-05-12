@@ -26,7 +26,7 @@ export default function CommentsPage({post, loggedUser, addComment, removeCommen
     return (
        <div id={`p${post._id}`} style={{width: "100%", height: "80%", zIndex: 3, position: "absolute", display: "none", backgroundColor: "white"}}>
          <Comment.Group style={{overflow: "scroll", height: "50%"}}>
-    <Header as='h3' dividing>
+    <Header as='h4' dividing>
       Comments
     </Header>
 {post.comments.map((comment) => {

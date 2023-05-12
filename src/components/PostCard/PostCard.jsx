@@ -63,8 +63,8 @@ export default function PostCard({post, loggedUser, isProfile, addFavorite, remo
                 size="large"
                 avatar
                 src={
-                  loggedUser.photoUrl
-                    ? loggedUser.photoUrl
+                  post.user.photoUrl
+                    ? post.user.photoUrl
                     : "https://react.semantic-ui.com/images/wireframe/square-image.png"
                 }
               />
